@@ -11,3 +11,5 @@ services:
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: modeva.settings
+      - key: FORCE_DEPLOY
+        value: "1"
