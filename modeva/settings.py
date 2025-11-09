@@ -26,6 +26,8 @@ SECRET_KEY = 'django-insecure-wj^eizg*gtsqz_olrb85167%69w#$%_!ly^(jm(6gsnlmhismb
 DEBUG = True
 
 ALLOWED_HOSTS = ['modiva-fashion.onrender.com', '127.0.0.1', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['https://modiva-fashion.onrender.com']
+
 
 
 
