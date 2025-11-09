@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="padding:40px;">
+  <h2 class="text-center" style="color:#e91e63;">My Orders</h2>
+  <hr>
+
+  {% if orders %}
+  <div class="table-responsive">
+    <table class="table table-bordered text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>Order ID</th>
+          <th>Total Amount</th>
+          <th>Payment Method</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>#{{ order.id }}</td>
+          <td>₹{{ order.total_amount }}</td>
+          <td>{{ order.payment_method }}</td>
+          <td>
+            {% if order.payment_status == "Paid" %}
+              <span style="color:green;">Paid ✅</span>
+            {% else %}
+              <span style="color:orange;">Pending ⏳</span>
+            {% endif %}
+          </td>
+          <td>{{ order.created_at|date:"d M Y, h:i A" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p class="text-center">You haven’t placed any orders yet 🛍️</p>
+  {% endif %}
+</div>
+{% endblock %}

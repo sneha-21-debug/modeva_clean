@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.payment-container {
+  max-width: 400px;
+  margin: 80px auto;
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.payment-container h2 {
+  color: #ff4081;
+}
+
+.payment-container input {
+  padding: 10px;
+  width: 100%;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.payment-container button {
+  background: linear-gradient(45deg, #ff4081, #ff7b54);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-container button:hover {
+  opacity: 0.9;
+}
+</style>
+
+<div class="payment-container">
+  <h2>💳 Online Payment Authentication</h2>
+  <p>Enter the 4-digit OTP to complete your payment.</p>
+
+  {% if error %}
+    <p style="color:red;">{{ error }}</p>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="otp" placeholder="Enter OTP (try 1234)" required>
+    <button type="submit">Confirm Payment ✅</button>
+  </form>
+</div>
+{% endblock %}

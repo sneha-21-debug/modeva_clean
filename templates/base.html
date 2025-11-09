@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}MODEVA - Fashion for Everyone{% endblock %}</title>
+
+  <!-- 🌸 CSS -->
+  <link rel="stylesheet" href="{% static 'modeva.css' %}">
+  <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+</head>
+<body>
+
+  <!-- 🌟 HEADER -->
+  <header class="header">
+  <h1 class="logo">MODEVA</h1>
+
+  <!-- 🍔 HAMBURGER ICON -->
+  <button class="hamburger" id="hamburger" aria-label="menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+  <!-- 🌸 MENU -->
+  <ul class="menu" id="menu">
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'shop' %}">Shop</a></li>
+    <li><a href="{% url 'men' %}">Men</a></li>
+    <li><a href="{% url 'women' %}">Women</a></li>
+    <li><a href="{% url 'kids' %}">Kids</a></li>
+    <li><a href="{% url 'accessories' %}">Accessories</a></li>
+    <li><a href="{% url 'view_cart' %}">🛒 Cart</a></li>
+    <li><a href="{% url 'view_wishlist' %}">💖 Wishlist</a></li>
+<li class="nav-item">
+  <a class="nav-link" href="{% url 'my_orders' %}">My Orders</a>
+</li>
+
+  </ul>
+</header>
+  <!-- 💖 PAGE CONTENT -->
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  <!-- 🌷 FOOTER -->
+  <footer>
+    <p>© 2025 <span>MODEVA</span> | All Rights Reserved</p>
+  </footer>
+
+  <!-- 🌸 JS FOR DROPDOWN MENU -->
+  <script>
+document.addEventListener("DOMContentLoaded", function () {
+  const hamburger = document.getElementById("hamburger");
+  const menu = document.getElementById("menu");
+
+  hamburger.addEventListener("click", () => {
+    menu.classList.toggle("open");
+    hamburger.classList.toggle("active");
+  });
+});
+</script>
+
+</body>
+</html>

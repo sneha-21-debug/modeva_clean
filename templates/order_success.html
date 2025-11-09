@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+.success-container {
+  max-width: 700px;
+  margin: 80px auto;
+  background: #fff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.success-icon {
+  font-size: 80px;
+  color: #4caf50;
+  margin-bottom: 20px;
+  animation: pop 0.6s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.success-container h2 {
+  color: #333;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.success-container p {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.order-summary {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.order-summary h4 {
+  color: #ff4081;
+  margin-bottom: 15px;
+}
+
+.order-summary p {
+  font-size: 15px;
+  color: #444;
+  margin: 5px 0;
+}
+
+.continue-btn {
+  background: linear-gradient(45deg, #ff4081, #ff7b54);
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.continue-btn:hover {
+  opacity: 0.9;
+}
+</style>
+
+<div class="success-container">
+  <div class="success-icon">✅</div>
+  <h2>Thank you for your purchase!</h2>
+  <p>Your order has been successfully placed. We’ll notify you once it’s on the way 🚚</p>
+
+  <div class="order-summary">
+    <h4>Order Summary</h4>
+    {% if request.user.is_authenticated %}
+      {% with last_order=request.user.order_set.last %}
+        {% if last_order %}
+          <p><strong>Order ID:</strong> #{{ last_order.id }}</p>
+          <p><strong>Total Amount:</strong> ₹{{ last_order.total_amount }}</p>
+          <p><strong>Payment Status:</strong> {{ last_order.payment_status }}</p>
+          <p><strong>Payment Method:</strong> {{ last_order.payment_method }}</p>
+          <p><strong>Delivery Address:</strong> {{ last_order.address }}</p>
+        {% else %}
+          <p>No recent order found.</p>
+        {% endif %}
+      {% endwith %}
+    {% endif %}
+  </div>
+
+  <a href="{% url 'home' %}" class="continue-btn">Continue Shopping 🛍️</a>
+</div>
+{% endblock %}

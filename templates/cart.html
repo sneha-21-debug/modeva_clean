@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+.cart-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 30px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.cart-container h2 {
+  text-align: center;
+  color: #ff4081;
+  margin-bottom: 20px;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.cart-table th {
+  background: #ff4081;
+  color: white;
+  padding: 12px;
+  text-align: left;
+  border-radius: 5px 5px 0 0;
+}
+
+.cart-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-table img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.action-links a {
+  margin: 0 5px;
+  text-decoration: none;
+  color: #ff4081;
+  font-weight: 600;
+}
+
+.total-section {
+  text-align: right;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.checkout-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background: linear-gradient(45deg, #ff4081, #ff7b54);
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.checkout-btn:hover {
+  opacity: 0.9;
+}
+</style>
+
+<div class="cart-container">
+  <h2>🛒 Your Shopping Cart</h2>
+
+  {% if cart_items %}
+  <table class="cart-table">
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Total</th>
+      <th>Actions</th>
+    </tr>
+
+    {% for item in cart_items %}
+    <tr>
+      <td>
+        {% if item.product.image %}
+  <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+{% else %}
+  <img src="{% static 'images/default-product.png' %}" alt="No image available">
+{% endif %}
+        {{ item.product.name }}
+      </td>
+      <td>₹{{ item.product.price }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>₹{{ item.product.price|floatformat:2|add:item.quantity }}</td>
+      <td class="action-links">
+        <a href="{% url 'increase_quantity' item.product.id %}">➕</a>
+        <a href="{% url 'decrease_quantity' item.product.id %}">➖</a>
+        <a href="{% url 'remove_from_cart' item.product.id %}">🗑</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  <div class="total-section">
+    <strong>Grand Total: ₹{{ total }}</strong><br><br>
+    <a href="{% url 'checkout' %}" class="checkout-btn">Proceed to Checkout 💳</a>
+  </div>
+
+  {% else %}
+  <p style="text-align:center; font-size:18px;">Your cart is empty 😢</p>
+  {% endif %}
+</div>
+{% endblock %}

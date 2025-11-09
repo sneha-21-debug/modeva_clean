@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODEVA - Online Fashion Store</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="navbar">
+  <div class="logo">MODEVA</div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Men</a></li>
+    <li><a href="#">Women</a></li>
+    <li><a href="#">Kids</a></li>
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="#">Cart</a></li>
+  </ul>
+
+  <div class="menu-icon" onclick="toggleMenu()">☰</div>
+</header>
+
+<style>
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: linear-gradient(90deg, #8b5cf6, #ff6ec7);
+    color: white;
+    position: relative;
+  }
+
+  .navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+  }
+
+  .nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+  }
+
+  /* responsive part */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 30px;
+      background: white;
+      padding: 15px 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links li a {
+      color: #8b5cf6;
+      font-weight: 600;
+    }
+
+    .menu-icon {
+      display: block;
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('active');
+  }
+</script>
+
+    <!-- Banner Section -->
+    <section class="banner">
+        <h2>Welcome to MODEVA</h2>
+        <p class="tagline">👠 Forget hopping from store to store — find every style, size, and essential outfit you need, all right here in one comprehensive fashion hub 👗✨</p>
+        <button>Shop Now</button>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+  <h2>Shop by Category</h2>
+  <div class="category-container">
+
+    <a href="{% url 'men' %}" class="category-card category-men">👕 Men</a>
+    <a href="{% url 'women' %}" class="category-card category-women">👗 Women</a>
+    <a href="{% url 'kids' %}" class="category-card category-kids">🧒 Kids</a>
+    <a href="{% url 'accessories' %}" class="category-card category-accessories">👜 Accessories</a>
+
+  </div>
+</section>
+</body>
+</html>

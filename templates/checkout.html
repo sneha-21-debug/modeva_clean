@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+.checkout-container {
+  max-width: 850px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 30px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.checkout-form {
+  width: 55%;
+}
+
+.checkout-form h2 {
+  color: #ff4081;
+  margin-bottom: 20px;
+}
+
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.order-summary {
+  width: 35%;
+  background: #fff5f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
+}
+
+.order-summary h3 {
+  color: #ff4081;
+}
+
+.place-order-btn {
+  background: linear-gradient(45deg, #ff4081, #ff7b54);
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.place-order-btn:hover {
+  opacity: 0.9;
+}
+</style>
+
+<div class="checkout-container">
+  <form class="checkout-form" method="POST">
+    {% csrf_token %}
+    <h2>Checkout</h2>
+    <label>Name</label>
+    <input type="text" name="name" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Phone</label>
+    <input type="text" name="phone" required>
+
+    <label>Address</label>
+    <textarea name="address" required></textarea>
+
+    <label>Payment Method</label><br>
+    <input type="radio" name="payment_method" value="COD" required> Cash on Delivery<br>
+    <input type="radio" name="payment_method" value="Online"> Online Payment<br>
+
+    <button type="submit" class="place-order-btn">Place Order</button>
+  </form>
+
+  <div class="order-summary">
+    <h3>Order Summary</h3>
+    {% for item in cart_items %}
+      <p>{{ item.product.name }} × {{ item.quantity }}</p>
+    {% endfor %}
+    <hr>
+    <p><strong>Total: ₹{{ total }}</strong></p>
+  </div>
+</div>
+{% endblock %}

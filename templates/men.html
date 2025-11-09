@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container" style="padding:30px;">
+  <h2 class="text-center" style="color:#e91e63;">Men's Collection</h2>
+  <hr>
+
+  {% if products %}
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-3" style="margin-bottom:25px;">
+      <div class="card shadow-sm" style="border:none; border-radius:10px;">
+        {% if product.image %}
+        <img src="{{ product.image.url }}" class="card-img-top" style="border-radius:10px; height:250px; object-fit:cover;">
+        {% else %}
+        <div style="height:250px; background:#f3f3f3; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+          No Image
+        </div>
+        {% endif %}
+        <div class="card-body text-center">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p>₹{{ product.price }}</p>
+          <a href="{% url 'add_to_cart' product.id %}" class="btn btn-dark">Add to Cart</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <p class="text-center">No products available.</p>
+  {% endif %}
+</div>
+{% endblock %}
